@@ -1,6 +1,6 @@
 package life.majiang.community.model;
 
-public class User {
+public class User {     //创建user信息实参
     private Integer id;
     private String name;
     private String accountId;

@@ -33,7 +33,7 @@ public class AuthorizeController {
     @Autowired
     private UserMapper userMapper;
     @GetMapping("/callback")
-    public String callback(@RequestParam(name = "code") String code,
+    public String callback(@RequestParam(name = "code") String code,     //获取用户id、secrect、uri
                            @RequestParam(name = "state") String state,
                            //HttpServletRequest request,
                            HttpServletResponse response){
@@ -46,7 +46,7 @@ public class AuthorizeController {
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getUser(accessToken);
         //System.out.println(user.getName());
-        if (githubUser != null){
+        if (githubUser != null && githubUser.getId() != null){                                            //当获得用户信息后，分别插入user表中
             User user = new User();
             String token = UUID.randomUUID().toString();
             user.setToken(token);
@@ -58,7 +58,7 @@ public class AuthorizeController {
             response.addCookie(new Cookie("token", token));
             //登陆成功，写cookie 和 session
 
-           // request.getSession().setAttribute("user",githubUser);
+           // 可删）request.getSession().setAttribute("user",githubUser);
             return "redirect:/";
         } else {
             return "redirect:/";
