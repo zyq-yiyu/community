@@ -21,14 +21,14 @@ public class AuthorizeController {
     @Autowired
     private GithubProvider githubProvider;
 
-    @Value("${github.client.id}")
+    @Value("${github.client.id}")  //从配置文件中读取我们需要的值赋值给我们的变量
     private String clientId;
 
     @Value("${github.client.secret}")
-    private String clientsecret;
+    private String clientSecret;
 
     @Value("${github.redirect.uri}")
-    private String redirecturi;
+    private String redirectUri;
 
     @Autowired
     private UserMapper userMapper;
@@ -39,9 +39,9 @@ public class AuthorizeController {
                            HttpServletResponse response){
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
-        accessTokenDTO.setClient_secret(clientsecret);
+        accessTokenDTO.setClient_secret(clientSecret);
         accessTokenDTO.setCode(code);
-        accessTokenDTO.setRedirect_uri(redirecturi);
+        accessTokenDTO.setRedirect_uri(redirectUri);
         accessTokenDTO.setState(state);
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getUser(accessToken);
@@ -54,12 +54,13 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setAvatarUrl(githubUser.getAvatar_url());
             userMapper.insert(user);
             response.addCookie(new Cookie("token", token));
             //登陆成功，写cookie 和 session
 
            // 可删）request.getSession().setAttribute("user",githubUser);
-            return "redirect:/";
+            return "redirect:/";            //redirect跳转，效果将地址全部删除再转到目的地址
         } else {
             return "redirect:/";
             //登录失败，重新登陆
