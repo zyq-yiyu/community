@@ -1,7 +1,7 @@
 package life.majiang.community.controller;
 
 
-import life.majiang.community.dto.QuestionDTO;
+import life.majiang.community.dto.PaginationDTO;
 import life.majiang.community.mapper.UserMapper;
 import life.majiang.community.model.User;
 import life.majiang.community.service.QuestionService;
@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 
 @Controller
@@ -24,7 +24,10 @@ public class IndexController {
     private QuestionService QuestionService;
     @GetMapping("/")
     public  String index(HttpServletRequest request,        //引入request
-                         Model model){
+                         Model model,
+                         @RequestParam(name = "page",defaultValue = "1") Integer page,
+                         @RequestParam(name = "size",defaultValue = "5") Integer size
+                         ){
         Cookie[] cookies = request.getCookies();        //从request中获取cookie
         if(cookies==null){                              //处理空指针异常
             return "index" ;
@@ -39,8 +42,8 @@ public class IndexController {
                 break;
             }
         }
-        List<QuestionDTO> questionList = QuestionService.list();
-        model.addAttribute("question",questionList);
+        PaginationDTO pagination = QuestionService.list(page, size);
+        model.addAttribute("pagination",pagination);
         return "index";
     }
 }
