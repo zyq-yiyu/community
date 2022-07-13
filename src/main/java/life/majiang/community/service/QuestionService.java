@@ -107,4 +107,17 @@ public class QuestionService {
         questionDTO.setUser(user);
         return questionDTO;
     }
+
+    public void createUpdate(Question question) {
+        if (question.getId() == null){
+            //创建
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.create(question);
+        }else {
+            //更新
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.update(question);
+        }
+    }
 }
