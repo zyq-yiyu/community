@@ -49,7 +49,7 @@ public class QuestionService {
 
 
         for (Question question : questions){
-            User user = userMapper.findById(question.getCreator());
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);  //等于questionDTO.setId(question.getId());
             questionDTO.setUser(user);
@@ -88,7 +88,7 @@ public class QuestionService {
 
 
         for (Question question : questions){
-            User user = userMapper.findById(question.getCreator());
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);  //等于questionDTO.setId(question.getId()); 作用：将question赋值到DTO
             questionDTO.setUser(user);
@@ -103,7 +103,7 @@ public class QuestionService {
         Question question = questionMapper.getById(id);
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
-        User user = userMapper.findById(question.getCreator());
+        User user = userMapper.selectByPrimaryKey(question.getCreator());
         questionDTO.setUser(user);
         return questionDTO;
     }
