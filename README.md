@@ -14,6 +14,8 @@
  ### [Git](https://git-scm.com/download)
  ### [Visual Paradigm](https://www.visual-paradigm.com)
  ### [Lombok](https://www.projectlombok.org)
+ ### [Postman](https://chrome.google.com/webstore/detail/coohjcphdfgbiolnekdpbcijmhambjff)
+
 
 ## 脚本
 ```sql
