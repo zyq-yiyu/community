@@ -7,6 +7,7 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode{
     SYS_ERROR(2004,"服务器问题"),
     TYPE_PARAM_WRONG(2005,"评论类型不存在"),
     COMMENT_NOT_FOUND(2006,"回复的评论不在了"),
+    COMMENT_IS_EMPTY(2007,"输入内容不能为空"),
     ;
 @Override
     public String getMessage() {

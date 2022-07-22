@@ -32,8 +32,25 @@ body {
 .community-menu {
     color: #999;
     font-size: 13px;
+    margin-bottom: 15px;
 }
 
 .comment{
     margin: 10px 0;
+}
+.comment-sp{
+    margin-top: 0;
+}
+
+.menu .comment-icon :hover {
+    color: #499ef3;
+}
+.menu .comment-icon {
+    font-size: 15px;
+    cursor: pointer;
+}
+.comments {
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
 }
